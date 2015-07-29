@@ -23,6 +23,7 @@ CLEAP_RESULT _cleap_generate_edges_hash(_cleap_mesh *m, FILE *off, float prog, f
 	std::tr1::unordered_map<int, _tmp_edge>::iterator hit;
 
 	std::vector<_tmp_edge*> edge_vector;
+    // basura
 
 	_tmp_edge* aux_tmp_edge;
 	int j_sec[3] = {0, 0, 1};
