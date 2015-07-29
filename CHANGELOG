@@ -1,0 +1,71 @@
+changelog:
+------------
+
+
+cleap-0.3.1:
+
+	BUG FIXES:
+	- fixed "cleap.h" in public functions cleap_paint_mesh where GLfloat values were used as arguments, causing compilation error for non gl applications. Now it uses standard floats.
+	- if the mesh file is not found for "cleap_load_mesh" then the function exits with an error message.
+	- fixed the gpu_mem information which was erratic in non_gl programs.
+	- fixed a linking bug with the library and GLEW, now aplications are not forced to link with -lGLEW anymore, aunless they explicity use it in their applications.
+
+	OTHER:
+	- added an error message if cmake does not find GLEW library when building cleap.
+
+
+cleap-0.3.0:
+
+	BUG FIXES:
+	- fixed a bug that made the library crash when no opengl context was created on the app (see API new function "cleap_init_no_render"). 
+
+	API:
+	- optimized loading functions, now edges array is built with hashmaps, much faster.
+	- new function: "cleap_init_no_render()" is for applications that do not use rendering. The older "cleap_init()" is for software that do create contexts on the app side, therefore they render.
+	- now private functions differenciate from public ones by prefixing an "_" to the private ones.
+	- c++ too specific codes are now handled in a "cleap.cc" file. This way can compile *.cc files with special headers like the "tr1/unordered_map" hashmap.
+	- there is now a "cleap_private.h" header where all private c++ only functions can be declared here.  Functions that include some cuda code should be kept in the *.cu files.
+	- "cleap_private" includes the public "cleap.h" header, so sources are suficient including just the private header.
+	- in function _cleap_load_mesh: renamed internal name of the variable "my_mesh" to just "m" for consistency with rest of code. 
+	- now loading is handled by 2 internal functions: "_cleap_host_load_mesh" and "_cleap_device_load_mesh". This way mantainance is much more modular
+	- renamed internal variable from auxEdgePointer to aux_tmp_edge
+	- added a new source file named cleap_glx_contex.cu that handles opengl context creation for GLX systems.
+	- moved timer functions to private side.
+
+	PUBLIC_DOC:
+	- nothing new, since all changes were for private parts of the library.
+
+	PRIVATE_DOC:
+	- nothing yet, should come in the future when the code becomes more stable.
+
+
+
+cleap-0.2.0:
+
+	API:
+	- renamed some variables in "cleap_kernel_utils.cu".
+	- "cleap_d_angle_adjacent_triangles" is now named "cleap_d_geometry_angle_test".
+	- small optimizations done to cleap_d_geometry_angle_test.
+
+	Documentation:
+	- removed long nonsense text of "Manual install from binaries" and put small text regarding *.deb install.
+
+	Other:
+	- removed duplicate backup (~) files from the tarball.
+	- included README file on CPACK package.
+
+
+
+
+cleap-0.1.0:
+
+	- gpu mdt (massive Delaunay transformations)
+	- gpu mesh painting
+	- gpu normals normalization
+	- load function for OFF format
+	- save function for OFF format
+	- free functions
+	- coalesced data structures
+	- self rendering functions
+	- color buffers
+	- normal buffers

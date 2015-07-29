@@ -1,0 +1,9 @@
+priority:
+
+	<<high>>:
+	- (easy) document private part of the code.
+	- (hard) remove runtime cuda dependencies (runtime code => driver code)
+
+	<<medium>>:
+	- (hard) implement padding over mesh data, for every CUDA kernel
+
