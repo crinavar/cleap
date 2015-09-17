@@ -3,7 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/cleap.dir/cleap.cc.o"
   "libcleap.pdb"
   "libcleap.so"
-  "libcleap.so.0.3.3"
+  "libcleap.so.0.3.2"
 )
 
 # Per-language clean rules from dependency scanning.

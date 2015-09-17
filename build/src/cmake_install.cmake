@@ -1,4 +1,4 @@
-# Install script for directory: /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src
+# Install script for directory: /home/cristobal/Dropbox/dev/cleaplib/cleap/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcleap.so.0.3.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcleap.so.0.3.2"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcleap.so"
       )
     if(EXISTS "${file}" AND
@@ -45,11 +45,11 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/libcleap.so.0.3.3"
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/libcleap.so"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/libcleap.so.0.3.2"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/libcleap.so"
     )
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcleap.so.0.3.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcleap.so.0.3.2"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcleap.so"
       )
     if(EXISTS "${file}" AND
@@ -64,10 +64,10 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/cleap-0.3.3" TYPE FILE FILES "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src/cleap.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/cleap-0.3.2" TYPE FILE FILES "/home/cristobal/Dropbox/dev/cleaplib/cleap/src/cleap.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cleap-0.3.3/include" TYPE FILE FILES "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src/cleap_config.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cleap-0.3.2/include" TYPE FILE FILES "/home/cristobal/Dropbox/dev/cleaplib/cleap/src/cleap_config.h")
 endif()
 

@@ -43,8 +43,8 @@ __global__ void cleap_kernel_exclusion_processing_2d(float4* mesh_data, GLuint* 
         op_shared_array[threadIdx.x] = edges_op[i];
 
         if( b_shared_array[threadIdx.x].x != -1 ){
-		//if( cleap_d_delaunay_test_2d( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
-		if( cleap_d_delaunay_test_2d_det( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
+		if( cleap_d_delaunay_test_2d( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
+		//if( cleap_d_delaunay_test_2d_det( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
                 listo[0] = 0;
                 // exclusion part
                 if( atomicExch( &(trireservs[a_shared_array[threadIdx.x].y/3]), i ) == -1 && atomicExch( &(trireservs[b_shared_array[threadIdx.x].y/3]), i ) == -1 ){ //!  + 8 flop
@@ -176,8 +176,7 @@ __global__ void cleap_kernel_exclusion_processing_2d_debug(float4* mesh_data, GL
         op_shared_array[threadIdx.x] = edges_op[i];
 
         if( b_shared_array[threadIdx.x].x != -1 ){
-		//if( cleap_d_delaunay_test_2d( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
-		if( cleap_d_delaunay_test_2d_det( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
+		if( cleap_d_delaunay_test_2d( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
                 listo[0] = 0;
                 // exclusion part
                 if( atomicExch( &(trireservs[a_shared_array[threadIdx.x].y/3]), i ) == -1 && atomicExch( &(trireservs[b_shared_array[threadIdx.x].y/3]), i ) == -1 ){ //!  + 8 flop
@@ -190,9 +189,9 @@ __global__ void cleap_kernel_exclusion_processing_2d_debug(float4* mesh_data, GL
                     // update the indices of the flipped edge.
                     edges_a[i] = make_int2(op_shared_array[threadIdx.x].x, a_shared_array[threadIdx.x].x);
                     edges_b[i] = make_int2(b_shared_array[threadIdx.x].y, op_shared_array[threadIdx.x].y); 
-					// update vertex indices
-					edges_n[i] = make_int2(triangles[op_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].x]);
-					// update oppposites indices
+		    // update vertex indices
+		    edges_n[i] = make_int2(triangles[op_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].x]);
+		    // update oppposites indices
                     edges_op[i] = make_int2(a_shared_array[threadIdx.x].y, b_shared_array[threadIdx.x].x);
                     atomicAdd(flips, 1);
                 }

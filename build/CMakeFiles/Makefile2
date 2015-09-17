@@ -47,10 +47,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3
+CMAKE_SOURCE_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build
+CMAKE_BINARY_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap/build
 
 #=============================================================================
 # Directory level rules for directory src
@@ -74,7 +74,7 @@ src/preinstall:
 src/CMakeFiles/cleap.dir/all:
 	$(MAKE) -f src/CMakeFiles/cleap.dir/build.make src/CMakeFiles/cleap.dir/depend
 	$(MAKE) -f src/CMakeFiles/cleap.dir/build.make src/CMakeFiles/cleap.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles  1 2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles  1 2
 	@echo "Built target cleap"
 .PHONY : src/CMakeFiles/cleap.dir/all
 
@@ -84,9 +84,9 @@ all: src/CMakeFiles/cleap.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/cleap.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/cleap.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/cleap.dir/rule
 
 # Convenience name for target.

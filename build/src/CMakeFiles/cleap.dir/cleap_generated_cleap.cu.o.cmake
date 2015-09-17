@@ -56,28 +56,28 @@ endif()
 
 # Set these up as variables to make reading the generated file easier
 set(CMAKE_COMMAND "/usr/bin/cmake") # path
-set(source_file "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src/cleap.cu") # path
-set(NVCC_generated_dependency_file "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//cleap_generated_cleap.cu.o.NVCC-depend") # path
-set(cmake_dependency_file "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//cleap_generated_cleap.cu.o.depend") # path
+set(source_file "/home/cristobal/Dropbox/dev/cleaplib/cleap/src/cleap.cu") # path
+set(NVCC_generated_dependency_file "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//cleap_generated_cleap.cu.o.NVCC-depend") # path
+set(cmake_dependency_file "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//cleap_generated_cleap.cu.o.depend") # path
 set(CUDA_make2cmake "/usr/share/cmake-3.0/Modules/FindCUDA/make2cmake.cmake") # path
 set(CUDA_parse_cubin "/usr/share/cmake-3.0/Modules/FindCUDA/parse_cubin.cmake") # path
 set(build_cubin OFF) # bool
 set(CUDA_HOST_COMPILER "/usr/bin/cc") # bool
 # We won't actually use these variables for now, but we need to set this, in
 # order to force this file to be run again if it changes.
-set(generated_file_path "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//.") # path
-set(generated_file_internal "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o") # path
-set(generated_cubin_file_internal "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o.cubin.txt") # path
+set(generated_file_path "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//.") # path
+set(generated_file_internal "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o") # path
+set(generated_cubin_file_internal "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/opt/cuda/bin/nvcc") # path
-set(CUDA_NVCC_FLAGS -arch=sm_20 ;; ) # list
+set(CUDA_NVCC_FLAGS -arch=sm_11 ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
 set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64;-Dcleap_EXPORTS) # list
-set(CUDA_NVCC_INCLUDE_ARGS "-I/opt/cuda/include;-I/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src;-I/opt/cuda/include") # list (needs to be in quotes to handle spaces properly).
+set(CUDA_NVCC_INCLUDE_ARGS "-I/opt/cuda/include;-I/home/cristobal/Dropbox/dev/cleaplib/cleap/src;-I/opt/cuda/include") # list (needs to be in quotes to handle spaces properly).
 set(format_flag "-c") # string
 
 if(build_cubin AND NOT generated_cubin_file)

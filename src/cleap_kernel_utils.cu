@@ -134,11 +134,10 @@ __device__ int cleap_d_delaunay_test_2d(const float4* mesh_data, const int op1, 
 
 }
 
+//! 39 flop
 __device__ int cleap_d_delaunay_test_2d_det(const float4* mesh_data, const int op1, const int op2, const int com_a, const int com_b ){
 
-	//printf("threadidx = %i det test\n", blockIdx.x * blockDim.x + threadIdx.x);
-	float det,order;
-
+	float det;
 	float4 A = mesh_data[com_a];
 	float4 B = mesh_data[com_b];
 	float4 C = mesh_data[op1];
@@ -153,35 +152,11 @@ __device__ int cleap_d_delaunay_test_2d_det(const float4* mesh_data, const int o
 	float A31 = C.x - D.x;
 	float A32 = C.y - D.y;
 	float A33 = (C.x*C.x - D.x*D.x) + (C.y*C.y - D.y*D.y);
-
-	float B11 = A.x - C.x;
-	float B12 = A.y - C.y;
-	float B21 = B.x - C.x;
-	float B22 = B.y - C.y;
-
+	
 	det = A11*(A22*A33 - A23*A32) - A12*(A21*A33 - A23*A31) + A13*(A21*A32 - A22*A31);
-	order = B11*B22 - B12*B21;
 
-	//if(det == 0.0f){
-	//	printf("zero det threadidx = %i det = %f\n", blockIdx.x * blockDim.x + threadIdx.x, det);
-	//}
+	return signbit(det);
 
-	if( order > 0.0f ){
-		if(det > 0.0f)
-			return 1;
-		else
-			return 0;
-	}
-	else if(order < 0.0f){
-		if(det < 0.0f)
-			return 1;
-		else
-			return 0;
-	}
-	printf("[no return] tid = %i  det = %f  \nA(com_a = %i)(%f, %f), \nB(com_b = %i)(%f, %f), \nC(op1 = %i)(%f, %f), \nD(op2 = %i)(%f, %f)\n\n", 
-			blockIdx.x * blockDim.x + threadIdx.x, det, com_a, A.x, A.y, com_b, B.x, B.y, op1, C.x, C.y, op2, D.x, D.y);
-	return 0;
-	//return (int)signbit((det*order)*-1);
 }
 #endif
 

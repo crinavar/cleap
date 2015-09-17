@@ -16,7 +16,7 @@ project(cleap)
 # ------------------------------------------------------
 set(CLEAP_VERSION_MAJOR 0)
 set(CLEAP_VERSION_MINOR 3)
-set(CLEAP_VERSION_PATCH 3)
+set(CLEAP_VERSION_PATCH 2)
 
 set(CLEAP_SOURCES cleap.cu cleap.cc)
 set(CLEAP_PUBLIC_HEADER cleap.h)

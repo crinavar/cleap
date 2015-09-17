@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3
+CMAKE_SOURCE_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build
+CMAKE_BINARY_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -105,7 +105,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -115,7 +115,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CPackSourceConfig.cmake
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -134,14 +134,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/resources/CMakeFiles/progress.marks
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(MAKE) -f CMakeFiles/Makefile2 resources/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles 0
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles /home/cristobal/Dropbox/dev/cleaplib/cleap/build/resources/CMakeFiles/progress.marks
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(MAKE) -f CMakeFiles/Makefile2 resources/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(MAKE) -f CMakeFiles/Makefile2 resources/clean
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(MAKE) -f CMakeFiles/Makefile2 resources/clean
 .PHONY : clean
 
 # The main clean target
@@ -150,17 +150,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(MAKE) -f CMakeFiles/Makefile2 resources/preinstall
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(MAKE) -f CMakeFiles/Makefile2 resources/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(MAKE) -f CMakeFiles/Makefile2 resources/preinstall
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(MAKE) -f CMakeFiles/Makefile2 resources/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -188,6 +188,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

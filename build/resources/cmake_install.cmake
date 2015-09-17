@@ -1,4 +1,4 @@
-# Install script for directory: /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources
+# Install script for directory: /home/cristobal/Dropbox/dev/cleaplib/cleap/resources
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,13 +33,13 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cleap-0.3.3" TYPE FILE FILES
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources/cleap_doxy_logo.png"
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources/cleap_doxy_logo_white.png"
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources/cleap_icon_bw.png"
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources/cleap_icon_wb.png"
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources/cleap_wb.png"
-    "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/resources/gplv3.png"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cleap-0.3.2" TYPE FILE FILES
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/resources/cleap_doxy_logo.png"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/resources/cleap_doxy_logo_white.png"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/resources/cleap_icon_bw.png"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/resources/cleap_icon_wb.png"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/resources/cleap_wb.png"
+    "/home/cristobal/Dropbox/dev/cleaplib/cleap/resources/gplv3.png"
     )
 endif()
 

@@ -23,7 +23,6 @@ CLEAP_RESULT _cleap_generate_edges_hash(_cleap_mesh *m, FILE *off, float prog, f
 	std::tr1::unordered_map<int, _tmp_edge>::iterator hit;
 
 	std::vector<_tmp_edge*> edge_vector;
-    // basura
 
 	_tmp_edge* aux_tmp_edge;
 	int j_sec[3] = {0, 0, 1};
@@ -105,12 +104,12 @@ CLEAP_RESULT _cleap_generate_edges_hash(_cleap_mesh *m, FILE *off, float prog, f
 		m->vnc_data.n[m->triangles[i*face+2]].z += normal.z;
 
 		// CANSKIP:: progress bar code, nothing important
-		//if( i > pbFraction*cont ){
-		//    prog += 0.25;
-		//    cont += 25.0f;
-		//    if( prog > 1.0 ){ prog = 1.0;}
+		if( i > pbFraction*cont ){
+		    prog += 0.25;
+		    cont += 25.0f;
+		    if( prog > 1.0 ){ prog = 1.0;}
 		    //printf("%.0f%%...", prog*100.0); fflush(stdout);
-		//}
+		}
 	}
 	m->processed_edges = 0;
 	// CLEAP::MESH:: update the edge count, now after being calculated

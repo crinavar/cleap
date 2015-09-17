@@ -28,6 +28,6 @@
 // the configured options and settings for cleap
 #define CLEAP_VERSION_MAJOR 0
 #define CLEAP_VERSION_MINOR 3
-#define CLEAP_VERSION_PATCH 3
+#define CLEAP_VERSION_PATCH 2
 
 #endif

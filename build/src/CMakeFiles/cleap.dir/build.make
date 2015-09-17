@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3
+CMAKE_SOURCE_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build
+CMAKE_BINARY_DIR = /home/cristobal/Dropbox/dev/cleaplib/cleap/build
 
 # Include any dependencies generated for this target.
 include src/CMakeFiles/cleap.dir/depend.make
@@ -49,160 +49,27 @@ include src/CMakeFiles/cleap.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/cleap.dir/flags.make
 
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap.cu
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_config.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_glx_context.cu
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_kernel_delaunay_transformation.cu
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_kernel_normalize_normals.cu
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_kernel_paint_mesh.cu
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_kernel_utils.cu
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap_private.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/builtin_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/channel_descriptor.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/common_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda_device_runtime_api.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda_gl_interop.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda_runtime.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda_runtime_api.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda_surface_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/cuda_texture_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/device_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/device_launch_parameters.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/device_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/driver_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/driver_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/host_config.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/host_defines.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/math_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/math_functions_dbl_ptx3.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_11_atomic_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_12_atomic_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_13_double_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_20_atomic_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_20_intrinsics.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_30_intrinsics.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_32_atomic_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_32_intrinsics.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_35_atomic_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/sm_35_intrinsics.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/surface_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/surface_indirect_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/surface_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/texture_fetch_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/texture_indirect_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/texture_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/vector_functions.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /opt/cuda/include/vector_types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/GL/gl.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/GL/glew.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/GL/glu.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/GL/glx.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/GL/glxext.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/X.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/Xfuncproto.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/Xlib.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/Xosdefs.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/Xutil.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/keysym.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/X11/keysymdef.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/_G_config.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/alloca.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/assert.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/byteswap-16.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/byteswap.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/confname.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/endian.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/environments.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/huge_val.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/huge_valf.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/huge_vall.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/inf.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/local_lim.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/locale.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/mathcalls.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/mathdef.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/nan.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/posix1_lim.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/posix2_lim.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/posix_opt.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/pthreadtypes.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/select.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/sigset.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/stdio_lim.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/stdlib-float.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/sys_errlist.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/time.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/timex.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/typesizes.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/waitflags.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/waitstatus.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/wchar.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/wordsize.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/bits/xopen_lim.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/bits/atomic_lockfree_defines.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/bits/cpp_type_traits.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/cmath
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/cstdlib
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/exception
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/ext/type_traits.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/new
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/x86_64-unknown-linux-gnu/bits/c++config.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/x86_64-unknown-linux-gnu/bits/cpu_defines.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/c++/4.9.1/x86_64-unknown-linux-gnu/bits/os_defines.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/endian.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/features.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/getopt.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/gnu/stubs-64.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/gnu/stubs.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/inttypes.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/libio.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/limits.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/linux/limits.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/locale.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/math.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/stdc-predef.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/stdint.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/stdio.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/stdlib.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/string.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/sys/cdefs.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/sys/select.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/sys/sysmacros.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/sys/time.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/sys/types.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/time.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/unistd.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/wchar.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/include/xlocale.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.1/include-fixed/limits.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.1/include-fixed/syslimits.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.1/include/float.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.1/include/stdarg.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.1/include/stddef.h
-src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: /usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.1/include/stdint.h
+src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: src/CMakeFiles/cleap.dir/cleap_generated_cleap.cu.o.depend
 src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: src/CMakeFiles/cleap.dir/cleap_generated_cleap.cu.o.cmake
 src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o: ../src/cleap.cu
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Building NVCC (Device) object src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o"
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir && /usr/bin/cmake -E make_directory /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//.
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir && /usr/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING= -D generated_file:STRING=/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o -D generated_cubin_file:STRING=/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o.cubin.txt -P /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir//cleap_generated_cleap.cu.o.cmake
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir && /usr/bin/cmake -E make_directory /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//.
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir && /usr/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING= -D generated_file:STRING=/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o -D generated_cubin_file:STRING=/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//./cleap_generated_cleap.cu.o.cubin.txt -P /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir//cleap_generated_cleap.cu.o.cmake
 
 src/CMakeFiles/cleap.dir/cleap.cc.o: src/CMakeFiles/cleap.dir/flags.make
 src/CMakeFiles/cleap.dir/cleap.cc.o: ../src/cleap.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cristobal/Dropbox/dev/cleaplib/cleap/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/CMakeFiles/cleap.dir/cleap.cc.o"
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/cleap.dir/cleap.cc.o -c /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src/cleap.cc
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/cleap.dir/cleap.cc.o -c /home/cristobal/Dropbox/dev/cleaplib/cleap/src/cleap.cc
 
 src/CMakeFiles/cleap.dir/cleap.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cleap.dir/cleap.cc.i"
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src/cleap.cc > CMakeFiles/cleap.dir/cleap.cc.i
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/cristobal/Dropbox/dev/cleaplib/cleap/src/cleap.cc > CMakeFiles/cleap.dir/cleap.cc.i
 
 src/CMakeFiles/cleap.dir/cleap.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cleap.dir/cleap.cc.s"
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src/cleap.cc -o CMakeFiles/cleap.dir/cleap.cc.s
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/cristobal/Dropbox/dev/cleaplib/cleap/src/cleap.cc -o CMakeFiles/cleap.dir/cleap.cc.s
 
 src/CMakeFiles/cleap.dir/cleap.cc.o.requires:
 .PHONY : src/CMakeFiles/cleap.dir/cleap.cc.o.requires
@@ -219,20 +86,20 @@ cleap_OBJECTS = \
 
 # External object files for target cleap
 cleap_EXTERNAL_OBJECTS = \
-"/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o"
+"/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o"
 
-src/libcleap.so.0.3.3: src/CMakeFiles/cleap.dir/cleap.cc.o
-src/libcleap.so.0.3.3: src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o
-src/libcleap.so.0.3.3: src/CMakeFiles/cleap.dir/build.make
-src/libcleap.so.0.3.3: /opt/cuda/lib64/libcudart.so
-src/libcleap.so.0.3.3: /opt/cuda/lib64/libcudart.so
-src/libcleap.so.0.3.3: /usr/lib64/libGLEW.so
-src/libcleap.so.0.3.3: src/CMakeFiles/cleap.dir/link.txt
+src/libcleap.so.0.3.2: src/CMakeFiles/cleap.dir/cleap.cc.o
+src/libcleap.so.0.3.2: src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o
+src/libcleap.so.0.3.2: src/CMakeFiles/cleap.dir/build.make
+src/libcleap.so.0.3.2: /opt/cuda/lib64/libcudart.so
+src/libcleap.so.0.3.2: /opt/cuda/lib64/libcudart.so
+src/libcleap.so.0.3.2: /usr/lib64/libGLEW.so
+src/libcleap.so.0.3.2: src/CMakeFiles/cleap.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library libcleap.so"
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cleap.dir/link.txt --verbose=$(VERBOSE)
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src && $(CMAKE_COMMAND) -E cmake_symlink_library libcleap.so.0.3.3 libcleap.so.0.3.3 libcleap.so
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cleap.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src && $(CMAKE_COMMAND) -E cmake_symlink_library libcleap.so.0.3.2 libcleap.so.0.3.2 libcleap.so
 
-src/libcleap.so: src/libcleap.so.0.3.3
+src/libcleap.so: src/libcleap.so.0.3.2
 
 # Rule to build all files generated by this target.
 src/CMakeFiles/cleap.dir/build: src/libcleap.so
@@ -242,10 +109,10 @@ src/CMakeFiles/cleap.dir/requires: src/CMakeFiles/cleap.dir/cleap.cc.o.requires
 .PHONY : src/CMakeFiles/cleap.dir/requires
 
 src/CMakeFiles/cleap.dir/clean:
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src && $(CMAKE_COMMAND) -P CMakeFiles/cleap.dir/cmake_clean.cmake
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src && $(CMAKE_COMMAND) -P CMakeFiles/cleap.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/cleap.dir/clean
 
 src/CMakeFiles/cleap.dir/depend: src/CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o
-	cd /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3 /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/src /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/CMakeFiles/cleap.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cristobal/Dropbox/dev/cleaplib/cleap/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cristobal/Dropbox/dev/cleaplib/cleap /home/cristobal/Dropbox/dev/cleaplib/cleap/src /home/cristobal/Dropbox/dev/cleaplib/cleap/build /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src /home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/CMakeFiles/cleap.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/CMakeFiles/cleap.dir/depend
 

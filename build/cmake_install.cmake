@@ -1,4 +1,4 @@
-# Install script for directory: /home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3
+# Install script for directory: /home/cristobal/Dropbox/dev/cleaplib/cleap
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/src/cmake_install.cmake")
-  include("/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/resources/cmake_install.cmake")
+  include("/home/cristobal/Dropbox/dev/cleaplib/cleap/build/src/cmake_install.cmake")
+  include("/home/cristobal/Dropbox/dev/cleaplib/cleap/build/resources/cmake_install.cmake")
 
 endif()
 
@@ -45,7 +45,7 @@ else()
   set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 endif()
 
-file(WRITE "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/${CMAKE_INSTALL_MANIFEST}" "")
+file(WRITE "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/${CMAKE_INSTALL_MANIFEST}" "")
 foreach(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  file(APPEND "/home/cristobal/Dropbox/dev/cleaplib/cleap-0.3.3/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  file(APPEND "/home/cristobal/Dropbox/dev/cleaplib/cleap/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 endforeach()
