@@ -30,5 +30,5 @@
 	* make sure dynamic linking is set properly: 
 		~$ set LD_LIBRARY_PATH = /usr/local/lib:$LD_LIBRARY_PATH
 
-#) Documentation
+# 6) Documentation
     Please visit http://users.dcc.uchile.cl/~crinavar/doc/cleap/ for more documentation.
