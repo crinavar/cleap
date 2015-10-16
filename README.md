@@ -1,4 +1,4 @@
-# cleap is a GPU-based library for handling, processing and rendering 3D meshes via CUDA and OpenGL.
+# cleap is a GPU-based library for processing triangle meshes.
 
 # 1) Versions history:
 	- version 0.3.2 (September, 2015)

@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC  -fmessage-length=0   -shared -Wl,-soname,libcleap.so.0.3.2 -o libcleap.so.0.3.2 CMakeFiles/cleap.dir/cleap.cc.o CMakeFiles/cleap.dir/./cleap_generated_cleap.cu.o /opt/cuda/lib64/libcudart.so /opt/cuda/lib64/libcudart.so -lGLEW -Wl,-rpath,/opt/cuda/lib64: 
