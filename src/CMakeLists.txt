@@ -1,7 +1,7 @@
 # ----------------------------------------------------------
 # set gpu architecture parameters
 # ----------------------------------------------------------
-SET(CUDA_NVCC_FLAGS "-arch=sm_20")
+SET(CUDA_NVCC_FLAGS "-arch=sm_30")
 
 
 
