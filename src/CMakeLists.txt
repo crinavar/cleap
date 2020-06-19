@@ -1,15 +1,15 @@
 # ----------------------------------------------------------
 # set gpu architecture parameters
 # ----------------------------------------------------------
-SET(CUDA_NVCC_FLAGS "-arch=sm_30")
+SET(CUDA_NVCC_FLAGS "-arch=sm_60")
 
 
 
 # ----------------------------------------------------------
-# compiler options for using unordered_map (C and 
+# compiler options for using unordered_map (C and
 # ----------------------------------------------------------
 IF(CMAKE_COMPILER_IS_GNUCXX)
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmessage-length=0")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fmessage-length=0")
 ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
 

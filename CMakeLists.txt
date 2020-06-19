@@ -102,15 +102,15 @@ configure_file( Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile )
 # -----------------------------------------------------------
 # search for package dependencies
 # -----------------------------------------------------------
-find_package(CUDA 3.0)
-find_package(OpenGL 2.1)
+find_package(CUDA 9.0)
+find_package(OpenGL 3.0)
 # GLEW
 MESSAGE(STATUS "Looking for GLEW" )
 find_package(GLEW)
 if(GLEW_FOUND)
 	# MESSAGE THAT IT IS FOUND
 	MESSAGE(STATUS "Looking for GLEW -- found" )
-else(GLEW_FOUND)		
+else(GLEW_FOUND)
 	# MESSAGE THAT IT IS NOT FOUND
 	MESSAGE(FATAL_ERROR "Looking for GLEW -- not found")
 endif(GLEW_FOUND)

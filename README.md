@@ -1,13 +1,13 @@
 # cleap is a GPU-based library for processing triangle meshes.
 
 # 1) Versions history:
-	- version 0.3.2 (September, 2015)
+	- version 0.3.3 (June 2020)
 
 
 # 2) Requirements:
-	- CUDA Runtime Library
+	- CUDA Runtime Library 9.0+
 	- Nvidia GPU supporting CUDA
-	- GLEW (with support of at least OpenGL 2.1)
+	- GLEW (with support of OpenGL 3.0+)
 
 # 3) License:
 	cleap is open source and has GPL v3 license. Therefore it may be freely copied, modified, and redistributed under the
