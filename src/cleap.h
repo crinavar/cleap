@@ -170,12 +170,30 @@ extern "C" {
 	 * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
 	 */
 	CLEAP_RESULT cleap_render_mesh(cleap_mesh *m);
-	/** Transforms the mesh into a Delaunay one, via the iterative MDT method.
+    /** Fix a mesh whose triangles might be reverted
+     * @param m a pointer of type cleap_mesh.
+     * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
+     * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
+     */
+    CLEAP_RESULT cleap_fix_inverted_triangles(cleap_mesh* m);
+	/** Fix a mesh whose triangles might be reverted
 	 * @param m a pointer of type cleap_mesh.
-	 * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
 	 * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
 	 */
-	CLEAP_RESULT cleap_delaunay_transformation(cleap_mesh *m, int mode);
+	CLEAP_RESULT cleap_fix_inverted_triangles_mode(cleap_mesh* m, int mode);
+    /** Moves randomly all points of a mesh
+     * @param m a pointer of type cleap_mesh.
+     * @param maxDisturb max amount of movement per particle
+     * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
+     * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
+     */
+    CLEAP_RESULT cleap_random_move_points(cleap_mesh* m, float maxDisturb);
+    /** Transforms the mesh into a Delaunay one, via the iterative MDT method.
+     * @param m a pointer of type cleap_mesh.
+     * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
+     * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
+     */
+    CLEAP_RESULT cleap_delaunay_transformation(cleap_mesh *m, int mode);
 	/** Performs one iteration of the MDT method. Educational purposes.
 	 * @param m a pointer of type cleap_mesh.
 	 * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
