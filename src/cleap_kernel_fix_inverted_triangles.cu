@@ -59,8 +59,7 @@ invertedTriangleTest(float4 op1, float4 op2, float4 e1, float4 e2)
 ////////////////////////////////////////////////////////////////////////////////
 
 template<unsigned int block_size>
-__global__ void
-correctTrianglesKernel(float4* mesh_data, GLuint* triangles, int2 *edges_n, int2 *edges_a, int2 *edges_b, int2 *edges_op, int edge_count, int *listo, int* trirel, int* trireservs){
+__global__ void correctTrianglesKernel(float4* mesh_data, GLuint* triangles, int2 *edges_n, int2 *edges_a, int2 *edges_b, int2 *edges_op, int edge_count, int *listo, int* trirel, int* trireservs){
     const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
     __shared__ int2 a_shared_array[block_size];
     __shared__ int2 b_shared_array[block_size];
