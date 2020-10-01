@@ -185,8 +185,6 @@ CLEAP_RESULT cleap_render_mesh(_cleap_mesh *m){
 			glDrawElements(GL_TRIANGLES, cleap_get_face_count(m)*3, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 		}
 		if (m->wireframe){
-			glDisableClientState(GL_COLOR_ARRAY);
-			glColor3f(0.0f, 0.0f, 1.0f);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glDrawElements(GL_TRIANGLES, cleap_get_face_count(m)*3, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 		}

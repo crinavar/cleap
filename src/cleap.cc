@@ -199,3 +199,7 @@ CLEAP_RESULT _cleap_host_load_mesh(_cleap_mesh *m, const char* filename){
 
 	return CLEAP_SUCCESS;
 }
+
+GLuint cleap_get_vertex_buffer(cleap_mesh *m){
+    return m->dm->vbo_v;
+}
