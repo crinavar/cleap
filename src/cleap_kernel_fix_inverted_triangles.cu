@@ -37,10 +37,23 @@ inline __device__ __host__ double cross(double2 u, double2 v)
     return u.x * v.y - v.x * u.y;
 }
 
+inline __device__ __host__ double hmod(double2 a){
+    return sqrt(a.x*a.x + a.y*a.y);
+}
+
+#define EPS 0.0001
+
+inline __device__ __host__ double2 normalize(double2 a){
+    return make_double2(a.x/hmod(a),a.y/hmod(a));
+}
+
+#define EPS 0.000001
+
 __device__ __host__ bool
 invertedTriangleTest(float4 op1, float4 op2, float4 e1, float4 e2)
 {
-    double2 v0 = distVec(e1, e2);
+    double2 v0 = normalize(distVec(e1, e2));
+//    double2 v0 = distVec(e1, e2);
     double2 v2 = distVec(e1, op2);
     double2 v1 = distVec(e1, op1);
 
@@ -48,10 +61,11 @@ invertedTriangleTest(float4 op1, float4 op2, float4 e1, float4 e2)
     double s = cross(v1, v0);
     double t = cross(v2, v1);
 
-    return (d < 0 && s <= 0 && t <= 0 && s+t >= d) ||
+    return ((d < 0 && s <= 0 && t <= 0 && s+t >= d) ||
            (d > 0 && s >= 0 && t >= 0 && s+t <= d) ||
            (s < 0 && d <= 0 && -t <= 0 && d-t >= s) ||
-           (s > 0 && d >= 0 && -t >= 0 && d-t <= s);
+           (s > 0 && d >= 0 && -t >= 0 && d-t <= s)) &&
+           hmod(distVec(e1, e2)) > EPS;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,9 +83,10 @@ __global__ void correctTrianglesKernel(float4* mesh_data, GLuint* triangles, int
         b_shared_array[threadIdx.x] = edges_b[i];
         op_shared_array[threadIdx.x] = edges_op[i];
 
+        __syncthreads();
+
         if( b_shared_array[threadIdx.x].x != -1 ){
-            if( invertedTriangleTest( mesh_data[triangles[op_shared_array[threadIdx.x].x]], mesh_data[triangles[op_shared_array[threadIdx.x].y]], mesh_data[triangles[a_shared_array[threadIdx.x].x]], mesh_data[triangles[a_shared_array[threadIdx.x].y]]) ) {
-                //if( cleap_d_delaunay_test_2d_det( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
+            if( invertedTriangleTest( mesh_data[triangles[op_shared_array[threadIdx.x].x]], mesh_data[triangles[op_shared_array[threadIdx.x].y]], mesh_data[triangles[a_shared_array[threadIdx.x].x]], mesh_data[triangles[a_shared_array[threadIdx.x].y]])>0) {
                 listo[0] = 0;
                 // exclusion part
                 if( atomicExch( &(trireservs[a_shared_array[threadIdx.x].y/3]), i ) == -1 && atomicExch( &(trireservs[b_shared_array[threadIdx.x].y/3]), i ) == -1 ){ //!  + 8 flop

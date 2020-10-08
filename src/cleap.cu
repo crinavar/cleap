@@ -319,6 +319,7 @@ CLEAP_RESULT cleap_fix_inverted_triangles_mode(_cleap_mesh *m, int mode){
     cudaDeviceProp deviceProp;
     cudaGetDeviceProperties(&deviceProp, 0);
 
+    int count =0;
     // if C.C is 1.2 or higher, then use zero-copy for the flag
     if( (deviceProp.major == 1 && deviceProp.minor >= 2) || (deviceProp.major >= 2) ){
         //printf("CLEAP::device::gpu::%s\n", deviceProp.name );
@@ -329,6 +330,8 @@ CLEAP_RESULT cleap_fix_inverted_triangles_mode(_cleap_mesh *m, int mode){
         _cleap_start_timer();
 
         while( !h_listo[0] ){
+            if(count>10000)break;
+            printf("fix triangles count: %d\n",count++);
             h_listo[0] = 1;
             cudaThreadSynchronize();
             _cleap_init_device_dual_arrays_int(m->dm->d_trirel, m->dm->d_trireservs, cleap_get_face_count(m), -1, dimBlockInit, dimGridInit); //demora el orden de 10^-5 secs
