@@ -26,52 +26,37 @@
 #ifndef _CLEAP_KERNEL_FIX_INVERTED_TRIANGLES_H
 #define _CLEAP_KERNEL_FIX_INVERTED_TRIANGLES_H
 
-inline __device__ __host__
-double2 distVec(float4 a, float4 b)
-{
-    return make_double2(b.x - a.x, b.y - a.y);
-}
+#include "cleap_kernel_utils.cu"
 
-inline __device__ __host__ double cross(double2 u, double2 v)
-{
-    return u.x * v.y - v.x * u.y;
-}
-
-inline __device__ __host__ double hmod(double2 a){
-    return sqrt(a.x*a.x + a.y*a.y);
-}
-
-#define EPS 0.0001
-
-inline __device__ __host__ double2 normalize(double2 a){
-    return make_double2(a.x/hmod(a),a.y/hmod(a));
-}
-
-#define EPS 0.000001
+#define CLEAP_TRIANGLE_ZERO_AREA_EPS 0.000001
 
 __device__ __host__ bool
 invertedTriangleTest(float4 op1, float4 op2, float4 e1, float4 e2)
 {
-    double2 v0 = normalize(distVec(e1, e2));
-//    double2 v0 = distVec(e1, e2);
-    double2 v2 = distVec(e1, op2);
-    double2 v1 = distVec(e1, op1);
+    float2 v0 = distVec(e1, e2);
+    float2 v2 = distVec(e1, op2);
+    float2 v1 = distVec(e1, op1);
 
     double d = cross(v2, v0);
     double s = cross(v1, v0);
     double t = cross(v2, v1);
 
+    // this is the case where two particles intersect each other, or said differently, both triangles get their area
+    // close to zero
+    if((abs(t)<CLEAP_TRIANGLE_ZERO_AREA_EPS)){
+        printf("v0: %f %f, v1: %f %f, v2: %f %f, d:%f, s:%f, t:%f\n",v0.x,v0.y,v1.x,v1.y,v2.x,v2.y,d,s,t);
+        return false;
+    }
+
     return ((d < 0 && s <= 0 && t <= 0 && s+t >= d) ||
            (d > 0 && s >= 0 && t >= 0 && s+t <= d) ||
            (s < 0 && d <= 0 && -t <= 0 && d-t >= s) ||
-           (s > 0 && d >= 0 && -t >= 0 && d-t <= s)) &&
-           hmod(distVec(e1, e2)) > EPS;
+           (s > 0 && d >= 0 && -t >= 0 && d-t <= s));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Kernel -- Copy arrays
+/// CLEAP::KERNEL:: triangle fix :: exclussion & processing 2D
 ////////////////////////////////////////////////////////////////////////////////
-
 template<unsigned int block_size>
 __global__ void correctTrianglesKernel(float4* mesh_data, GLuint* triangles, int2 *edges_n, int2 *edges_a, int2 *edges_b, int2 *edges_op, int edge_count, int *listo, int* trirel, int* trireservs){
     const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
@@ -174,144 +159,20 @@ __global__ void repairTrianglesKernel(unsigned int* triangles, int* rotations,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// CLEAP::KERNEL:: delaunay transformation :: exclussion & processing 3D
+/// CLEAP::KERNEL:: triangle fix transformation :: exclussion & processing 3D
 ////////////////////////////////////////////////////////////////////////////////
-//! 2D --> 65 flop
+//TODO: this function isn't programmed yet
 template<unsigned int block_size>
 __global__ void cleap_kernel_triangle_fix_3d(float4* mesh_data, GLuint* triangles, int2 *edges_n, int2 *edges_a, int2 *edges_b, int2 *edges_op, int edge_count, int *listo, int* trirel, int* trireservs){
-
-    const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
-    __shared__ int2 a_shared_array[block_size];
-    __shared__ int2 b_shared_array[block_size];
-    __shared__ int2 op_shared_array[block_size];
-    if( i<edge_count ){
-        a_shared_array[threadIdx.x] = edges_a[i];
-        b_shared_array[threadIdx.x] = edges_b[i];
-        op_shared_array[threadIdx.x] = edges_op[i];
-        if( b_shared_array[threadIdx.x].x != -1 ){
-            //! 3D mode --> + 62 flop
-            if( cleap_d_delaunay_test_3d( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y], 10.0f) > 0) {
-                listo[0] = 0;
-                // exclusion part
-                if( atomicExch( &(trireservs[a_shared_array[threadIdx.x].y/3]), i ) == -1 && atomicExch( &(trireservs[b_shared_array[threadIdx.x].y/3]), i ) == -1 ){ //!  + 8 flop
-                    // flip the edge
-                    trirel[a_shared_array[threadIdx.x].y/3] = b_shared_array[threadIdx.x].y/3;
-                    trirel[b_shared_array[threadIdx.x].y/3] = a_shared_array[threadIdx.x].y/3;
-                    // exchange indices
-                    triangles[a_shared_array[threadIdx.x].x] = triangles[op_shared_array[threadIdx.x].y];
-                    triangles[b_shared_array[threadIdx.x].y] = triangles[op_shared_array[threadIdx.x].x];
-                    // update flipped edge
-                    edges_a[i] = make_int2(op_shared_array[threadIdx.x].x, a_shared_array[threadIdx.x].x);
-                    edges_b[i] = make_int2(b_shared_array[threadIdx.x].y, op_shared_array[threadIdx.x].y);
-                    edges_n[i] = make_int2(triangles[op_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].x]);
-                    edges_op[i] = make_int2(a_shared_array[threadIdx.x].y, b_shared_array[threadIdx.x].x);
-                }
-            }
-        }
-    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// CLEAP::KERNEL:: delaunay transformation :: Repair
-////////////////////////////////////////////////////////////////////////////////
-
-__global__ void cleap_kernel_repair2(GLuint* triangles, int* trirel, int2 *edges_n, int2 *edges_a, int2 *edges_b, int2 *edges_op, int edge_count){
-
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if( i<edge_count ){
-	// use volatile variables, this forces register use. Sometimes manual optimization achieves better performance.
-        volatile int2 n = edges_n[i];
-        volatile int2 a = edges_a[i];
-        volatile int2 b = edges_b[i];
-        volatile int2 op = edges_op[i];
-	// if the t_a pair of indexes are broken
-        if( (n.x != triangles[a.x] || n.y != triangles[a.y]) ){
-	    // then repair them.
-            int t_index = trirel[ a.x/3 ];
-            if( triangles[3*t_index+0] == n.x ){
-               a.x = 3*t_index+0;
-               triangles[3*t_index+1] == n.y ? (a.y = 3*t_index+1, op.x = 3*t_index+2) : (a.y = 3*t_index+2, op.x = 3*t_index+1);
-            }
-            else if( triangles[3*t_index+1] == n.x ){
-               a.x = 3*t_index+1;
-               triangles[3*t_index+0] == n.y ? (a.y = 3*t_index+0, op.x = 3*t_index+2) : (a.y = 3*t_index+2, op.x = 3*t_index+0);
-            }
-            else if( triangles[3*t_index+2] == n.x ){
-               a.x = 3*t_index+2;
-               triangles[3*t_index+0] == n.y ? (a.y = 3*t_index+0, op.x = 3*t_index+1) : (a.y = 3*t_index+1, op.x = 3*t_index+0);
-            }
-        }
-        if( b.x != -1 ){
-            if( (n.x != triangles[b.x] || n.y != triangles[b.y]) ){
-                int t_index = trirel[ b.x/3 ];
-                if( triangles[3*t_index+0] == n.x ){
-                   b.x = 3*t_index+0;
-                   triangles[3*t_index+1] == n.y ? (b.y = 3*t_index+1, op.y = 3*t_index+2) : (b.y = 3*t_index+2, op.y = 3*t_index+1);
-                }
-                else if( triangles[3*t_index+1] == n.x ){
-                   b.x = 3*t_index+1;
-                   triangles[3*t_index+0] == n.y ? (b.y = 3*t_index+0, op.y = 3*t_index+2) : (b.y = 3*t_index+2, op.y = 3*t_index+0);
-                }
-                else if( triangles[3*t_index+2] == n.x ){
-                   b.x = 3*t_index+2;
-                   triangles[3*t_index+0] == n.y ? (b.y = 3*t_index+0, op.y = 3*t_index+1) : (b.y = 3*t_index+1, op.y = 3*t_index+0);
-                }
-            }
-        }
-        edges_a[i] = make_int2(a.x, a.y);
-        edges_b[i] = make_int2(b.x, b.y);
-        edges_op[i] = make_int2(op.x, op.y);
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-/// CLEAP::KERNEL:: delaunay transformation :: exclussion & processing 2D debug
+/// CLEAP::KERNEL:: delaunay triangle fix :: exclussion & processing 2D debug
 ////////////////////////////////////////////////////////////////////////////////
 //! 2D --> 65 flop
+//TODO: this function isn't programmed yet
 template<unsigned int block_size>
 __global__ void cleap_kernel_triangle_fix_2d_debug(float4* mesh_data, GLuint* triangles, int2 *edges_n, int2 *edges_a, int2 *edges_b, int2 *edges_op, int edge_count, int *listo, int* trirel, int* trireservs, int* flips){
-
-    const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
-    __shared__ int2 a_shared_array[block_size];
-    __shared__ int2 b_shared_array[block_size];
-    __shared__ int2 op_shared_array[block_size];
-    if( i<edge_count ){
-        a_shared_array[threadIdx.x] = edges_a[i];
-        b_shared_array[threadIdx.x] = edges_b[i];
-        op_shared_array[threadIdx.x] = edges_op[i];
-
-        if( b_shared_array[threadIdx.x].x != -1 ){
-		if( cleap_d_delaunay_test_2d( mesh_data, triangles[op_shared_array[threadIdx.x].x], triangles[op_shared_array[threadIdx.x].y], triangles[a_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].y]) > 0) {
-                listo[0] = 0;
-                // exclusion part
-                if( atomicExch( &(trireservs[a_shared_array[threadIdx.x].y/3]), i ) == -1 && atomicExch( &(trireservs[b_shared_array[threadIdx.x].y/3]), i ) == -1 ){ //!  + 8 flop
-                    // proceed to flip the edges
-                    trirel[a_shared_array[threadIdx.x].y/3] = b_shared_array[threadIdx.x].y/3; //! + 8 flop
-                    trirel[b_shared_array[threadIdx.x].y/3] = a_shared_array[threadIdx.x].y/3; //! + 8 flop
-                    // exchange necessary indexes
-                    triangles[a_shared_array[threadIdx.x].x] = triangles[op_shared_array[threadIdx.x].y];
-                    triangles[b_shared_array[threadIdx.x].y] = triangles[op_shared_array[threadIdx.x].x];
-                    // update the indices of the flipped edge.
-                    edges_a[i] = make_int2(op_shared_array[threadIdx.x].x, a_shared_array[threadIdx.x].x);
-                    edges_b[i] = make_int2(b_shared_array[threadIdx.x].y, op_shared_array[threadIdx.x].y);
-		    // update vertex indices
-		    edges_n[i] = make_int2(triangles[op_shared_array[threadIdx.x].x], triangles[a_shared_array[threadIdx.x].x]);
-		    // update oppposites indices
-                    edges_op[i] = make_int2(a_shared_array[threadIdx.x].y, b_shared_array[threadIdx.x].x);
-                    atomicAdd(flips, 1);
-                }
-            }
-        }
-    }
-}
-
-template<unsigned int block_size>
-__global__ void cleap_random_move_points_kernel(float4* mesh_data, float2* displacements, int vertexCount){
-    const int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if(i>=vertexCount)return;
-    mesh_data[i].x+=displacements[i].x;
-    mesh_data[i].y+=displacements[i].y;
 }
 
 #endif

@@ -135,6 +135,7 @@ __device__ int cleap_d_delaunay_test_2d(const float4* mesh_data, const int op1, 
 }
 
 //! 39 flop
+// based on https://www.cs.cmu.edu/~quake/robust.html
 __device__ int cleap_d_delaunay_test_2d_det(const float4* mesh_data, const int op1, const int op2, const int com_a, const int com_b ){
 
 	float det;
@@ -158,5 +159,17 @@ __device__ int cleap_d_delaunay_test_2d_det(const float4* mesh_data, const int o
 	return signbit(det);
 
 }
+
+inline __device__ __host__
+float2 distVec(float4 a, float4 b)
+{
+    return make_float2(b.x - a.x, b.y - a.y);
+}
+
+inline __device__ __host__ double cross(float2 u, float2 v)
+{
+    return u.x * v.y - v.x * u.y;
+}
+
 #endif
 
