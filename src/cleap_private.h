@@ -9,9 +9,10 @@
 #include <stdio.h>
 #include <float.h>
 #include <locale.h>
-#include <vector_types.h>
 #include <vector_functions.h>
 #include <sys/time.h>
+#include <map>
+#include <vector>
 
 #include "cleap.h"
 
@@ -38,14 +39,21 @@ struct cleap_device_mesh {
 
 
 struct _cleap_mesh {
-		cleap_vnc_data vnc_data;
-		cleap_edge_data edge_data;
-		GLuint* triangles;
-		int vertex_count, edge_count, face_count;
-		float3 max_coords, min_coords;
-		int processed_edges, wireframe, solid;
-		cleap_device_mesh *dm;
-		CLEAP_RESULT status;	// important flag!!
+    cleap_vnc_data vnc_data;
+    cleap_edge_data edge_data;
+    GLuint* triangles;
+    int vertex_count, edge_count, face_count;
+    float3 max_coords, min_coords;
+    int processed_edges, wireframe, solid;
+    cleap_device_mesh *dm;
+    CLEAP_RESULT status;	// important flag!!
+
+    std::vector<int*> associated_int_buffers;
+    std::vector<float*> associated_float_buffers;
+    std::vector<double*> associated_double_buffers;
+    std::vector<int2*> associated_int2_buffers;
+    std::vector<float2*> associated_float2_buffers;
+    std::vector<double2*> associated_double2_buffers;
 };
 
 

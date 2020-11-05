@@ -197,6 +197,14 @@ extern "C" {
      * @result The vertex buffer pointer, of type GLuint.
      */
     GLuint cleap_get_vertex_buffer(cleap_mesh *m);
+
+    void register_associated_int_buffer(cleap_mesh *m, int* buffer);
+    void register_associated_float_buffer(cleap_mesh *m, float* buffer);
+    void register_associated_double_buffer(cleap_mesh *m, double* buffer);
+    void register_associated_int2_buffer(cleap_mesh *m, int* buffer);
+    void register_associated_float2_buffer(cleap_mesh *m, float* buffer);
+    void register_associated_double2_buffer(cleap_mesh *m, double* buffer);
+
 #ifdef __cplusplus
 }
 #endif
