@@ -318,6 +318,22 @@ __global__ void perform_swap_pos_buffer_kernel(float4* mesh_data, int* has_to_sw
     }
 }
 
+__global__ void correct_CW_triangles(float4* d_vbo_v, GLuint *d_eab, int numTriangles){
+    const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
+    if(i<numTriangles){
+        float4 p1 = d_vbo_v[d_eab[3*i+0]];
+        float4 p2 = d_vbo_v[d_eab[3*i+1]];
+        float4 p3 = d_vbo_v[d_eab[3*i+2]];
+
+        float2 v1 = distVec(p1,p2); // b-a
+        float2 v2 = distVec(p1,p3);
+
+        if(cross(v1,v2)<0){
+            swap(d_eab[3*i+0],d_eab[3*i+1]);
+        }
+    }
+}
+
 void perform_swap_pos_buffer(cleap_mesh* m, int* swap_vertices, float4* d_vbo_v){
     int block_size = CLEAP_CUDA_BLOCKSIZE;
     dim3 dimBlock(block_size);
@@ -363,10 +379,6 @@ CLEAP_RESULT cleap_fix_inverted_triangles_mode(_cleap_mesh *m, int mode){
         _cleap_start_timer();
 
         while( !h_listo[0] ){
-            if(count>10000){
-                //cleap_print_mesh(m);
-                break;
-            }
             //printf("fix triangles count: %d\n",count++);
             h_listo[0] = 1;
             cudaThreadSynchronize();
@@ -381,14 +393,15 @@ CLEAP_RESULT cleap_fix_inverted_triangles_mode(_cleap_mesh *m, int mode){
             if(h_listo[0]==-1){
                 perform_swap_pos_buffer(m,d_swap_vertices,d_vbo_v);
                 perform_swapping_associated_buffers(m,h_swap_vertices);
-                break;
+//                correct_CW_triangles<<<dimGridInit,dimBlockInit>>>(d_vbo_v, d_eab, cleap_get_face_count(m));
+                h_listo[0]=0;
             }
             if( h_listo[0] ){break;}
             //repair triangulation step
             cleap_kernel_repair<<< dimGrid, dimBlock >>>(d_eab, m->dm->d_trirel, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m)); //update
             it++;
-            cudaFree(d_swap_vertices);
         }
+        cudaFree(d_swap_vertices);
     }
         // else use memcpy transfers
     else{

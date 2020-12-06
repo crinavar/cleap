@@ -87,9 +87,11 @@ __global__ void correctTrianglesKernel(float4* mesh_data, GLuint* triangles, int
         if( b_shared_array[threadIdx.x].x != -1 ){
             int test = invertedTriangleTest( mesh_data[triangles[op_shared_array[threadIdx.x].x]], mesh_data[triangles[op_shared_array[threadIdx.x].y]], mesh_data[triangles[a_shared_array[threadIdx.x].x]], mesh_data[triangles[a_shared_array[threadIdx.x].y]]);
             if(test==-1){
-                listo[0] = -1;
-                has_to_swap_vertices[triangles[a_shared_array[threadIdx.x].y]]=triangles[a_shared_array[threadIdx.x].x];
-                has_to_swap_vertices[triangles[a_shared_array[threadIdx.x].x]]=triangles[a_shared_array[threadIdx.x].y];
+                if(has_to_swap_vertices[triangles[a_shared_array[threadIdx.x].y]]==-1) {
+                    listo[0] = -1;
+                    has_to_swap_vertices[triangles[a_shared_array[threadIdx.x].y]] = triangles[a_shared_array[threadIdx.x].x];
+                    has_to_swap_vertices[triangles[a_shared_array[threadIdx.x].x]] = triangles[a_shared_array[threadIdx.x].y];
+                }
             }
             if(test>0) {
                 listo[0] = (listo[0]==-1?-1:0);
