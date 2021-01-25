@@ -170,18 +170,41 @@ extern "C" {
 	 * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
 	 */
 	CLEAP_RESULT cleap_render_mesh(cleap_mesh *m);
-	/** Transforms the mesh into a Delaunay one, via the iterative MDT method.
+    /** Fix a 2D mesh whose triangles might be reverted.
+     * @param m a pointer of type cleap_mesh.
+     * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
+     */
+    CLEAP_RESULT cleap_fix_inverted_triangles(cleap_mesh* m);
+	/** Fix a mesh whose triangles might be reverted.
 	 * @param m a pointer of type cleap_mesh.
-	 * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
 	 * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
 	 */
-	CLEAP_RESULT cleap_delaunay_transformation(cleap_mesh *m, int mode);
+	CLEAP_RESULT cleap_fix_inverted_triangles_mode(cleap_mesh* m, int mode);
+    /** Transforms the mesh into a Delaunay one, via the iterative MDT method.
+     * @param m a pointer of type cleap_mesh.
+     * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
+     * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
+     */
+    CLEAP_RESULT cleap_delaunay_transformation(cleap_mesh *m, int mode);
 	/** Performs one iteration of the MDT method. Educational purposes.
 	 * @param m a pointer of type cleap_mesh.
 	 * @param mode dimensional mode; <tt>CLEAP_MODE_2D</tt> or <tt>CLEAP_MODE_3D</tt>.
 	 * @result <tt>CLEAP_SUCCESS</tt> if succesful, otherwise <tt>CLEAP_FAILURE</tt>.
 	 */
 	int cleap_delaunay_transformation_interactive(cleap_mesh *m, int mode);
+    /** Returns a copy of the OpenGL vertex buffer pointer.
+     * @param m a pointer of type cleap_mesh.
+     * @result The vertex buffer pointer, of type GLuint.
+     */
+    GLuint cleap_get_vertex_buffer(cleap_mesh *m);
+
+    void register_associated_int_buffer(cleap_mesh *m, int* buffer);
+    void register_associated_float_buffer(cleap_mesh *m, float* buffer);
+    void register_associated_double_buffer(cleap_mesh *m, double* buffer);
+    void register_associated_int2_buffer(cleap_mesh *m, int* buffer);
+    void register_associated_float2_buffer(cleap_mesh *m, float* buffer);
+    void register_associated_double2_buffer(cleap_mesh *m, double* buffer);
+
 #ifdef __cplusplus
 }
 #endif

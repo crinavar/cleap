@@ -5,6 +5,7 @@
 #include <string>
 #include <stdio.h>
 #include <tr1/unordered_map>
+#include <utility>
 
 typedef std::pair<int, int> pairArco;
 
@@ -198,4 +199,27 @@ CLEAP_RESULT _cleap_host_load_mesh(_cleap_mesh *m, const char* filename){
 	m->solid = 1;
 
 	return CLEAP_SUCCESS;
+}
+
+GLuint cleap_get_vertex_buffer(cleap_mesh *m){
+    return m->dm->vbo_v;
+}
+
+void register_associated_int_buffer(cleap_mesh *m, int* buffer){
+    m->associated_int_buffers.push_back(buffer);
+}
+void register_associated_float_buffer(cleap_mesh *m, float* buffer){
+    m->associated_float_buffers.push_back(buffer);
+}
+void register_associated_double_buffer(cleap_mesh *m, double* buffer){
+    m->associated_double_buffers.push_back(buffer);
+}
+void register_associated_int2_buffer(cleap_mesh *m, int* buffer){
+    m->associated_int2_buffers.push_back((int2*)buffer);
+}
+void register_associated_float2_buffer(cleap_mesh *m, float* buffer){
+    m->associated_float2_buffers.push_back((float2*)buffer);
+}
+void register_associated_double2_buffer(cleap_mesh *m, double* buffer) {
+    m->associated_double2_buffers.push_back((double2 *) buffer);
 }

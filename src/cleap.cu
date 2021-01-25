@@ -38,6 +38,7 @@
 #include "cleap_kernel_normalize_normals.cu"
 #include "cleap_kernel_delaunay_transformation.cu"
 #include "cleap_kernel_paint_mesh.cu"
+#include "cleap_kernel_fix_inverted_triangles.cu"
 
 // context creation header for opengl
 // linux
@@ -184,8 +185,6 @@ CLEAP_RESULT cleap_render_mesh(_cleap_mesh *m){
 			glDrawElements(GL_TRIANGLES, cleap_get_face_count(m)*3, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 		}
 		if (m->wireframe){
-			glDisableClientState(GL_COLOR_ARRAY);
-			glColor3f(0.0f, 0.0f, 1.0f);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glDrawElements(GL_TRIANGLES, cleap_get_face_count(m)*3, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 		}
@@ -294,9 +293,163 @@ void cleap_print_mesh( _cleap_mesh *m ){
 	}
 }
 
+CLEAP_RESULT cleap_fix_inverted_triangles(cleap_mesh* m){
+    return cleap_fix_inverted_triangles_mode(m,CLEAP_MODE_2D);
+}
+
+void perform_swapping_associated_buffers(cleap_mesh* m, int* swap_vertices){
+    for(int i=0;i<cleap_get_vertex_count(m);i++){
+        if(swap_vertices[i]!=-1 && swap_vertices[i]<i) {
+            for(int j=0;j<m->associated_float2_buffers.size();j++){
+                printf("Data 1: %f,%f     Data 2: %f,%f\n",m->associated_float2_buffers[j][i].x,m->associated_float2_buffers[j][i].y,m->associated_float2_buffers[j][swap_vertices[i]].x,m->associated_float2_buffers[j][swap_vertices[i]].y);
+                swap(m->associated_float2_buffers[j][i], m->associated_float2_buffers[j][swap_vertices[i]]);
+                printf("Data 1: %f,%f     Data 2: %f,%f\n",m->associated_float2_buffers[j][i].x,m->associated_float2_buffers[j][i].y,m->associated_float2_buffers[j][swap_vertices[i]].x,m->associated_float2_buffers[j][swap_vertices[i]].y);
+            }
+        }
+    }
+}
+
+__global__ void perform_swap_pos_buffer_kernel(float4* mesh_data, int* has_to_swap_vertices, int vertexCount){
+    const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
+    if(i<vertexCount){
+        if(has_to_swap_vertices[i]!=-1 && i<has_to_swap_vertices[i]){
+            swap(mesh_data[i],mesh_data[has_to_swap_vertices[i]]);
+        }
+    }
+}
+
+__global__ void correct_CW_triangles(float4* d_vbo_v, GLuint *d_eab, int numTriangles){
+    const int i = blockIdx.x * blockDim.x + threadIdx.x; //! + 2 flop
+    if(i<numTriangles){
+        float4 p1 = d_vbo_v[d_eab[3*i+0]];
+        float4 p2 = d_vbo_v[d_eab[3*i+1]];
+        float4 p3 = d_vbo_v[d_eab[3*i+2]];
+
+        float2 v1 = distVec(p1,p2); // b-a
+        float2 v2 = distVec(p1,p3);
+
+        if(cross(v1,v2)<0){
+            swap(d_eab[3*i+0],d_eab[3*i+1]);
+        }
+    }
+}
+
+void perform_swap_pos_buffer(cleap_mesh* m, int* swap_vertices, float4* d_vbo_v){
+    int block_size = CLEAP_CUDA_BLOCKSIZE;
+    dim3 dimBlock(block_size);
+    dim3 dimGrid((cleap_get_vertex_count(m)+block_size-1) / dimBlock.x);
+    perform_swap_pos_buffer_kernel<<< dimGrid, dimBlock >>>(d_vbo_v,swap_vertices,cleap_get_vertex_count(m));
+}
+
+CLEAP_RESULT cleap_fix_inverted_triangles_mode(_cleap_mesh *m, int mode){
+    //printf("CLEAP::fix_inverted_triangles%id\n", mode);
+    float4 *d_vbo_v;
+    GLuint *d_eab;
+    size_t bytes=0;
+    int *h_listo, it=0;
+    int *h_swap_vertices,*d_swap_vertices;
+    // Map resources
+    cudaGraphicsMapResources(1, &m->dm->vbo_v_cuda, 0);
+    cudaGraphicsMapResources(1, &m->dm->eab_cuda, 0);
+    cudaGraphicsResourceGetMappedPointer( (void**)&d_vbo_v, &bytes, m->dm->vbo_v_cuda);
+    cudaGraphicsResourceGetMappedPointer( (void**)&d_eab, &bytes, m->dm->eab_cuda);
+    // TEXTURE
+    cudaChannelFormatDesc channelDesc = cudaCreateChannelDesc<GLuint>();
+    cudaBindTexture(0, tex_triangles, d_eab, channelDesc, cleap_get_face_count(m)*3*sizeof(GLuint));
+    int block_size = CLEAP_CUDA_BLOCKSIZE;
+    dim3 dimBlock(block_size);
+    dim3 dimGrid((cleap_get_edge_count(m)+block_size-1) / dimBlock.x);
+    dim3 dimBlockInit(block_size);
+    dim3 dimGridInit((cleap_get_face_count(m)+block_size-1) / dimBlock.x);
+    cudaDeviceProp deviceProp;
+    cudaGetDeviceProperties(&deviceProp, 0);
+
+    int count =0;
+    // if C.C is 1.2 or higher, then use zero-copy for the flag
+    if( (deviceProp.major == 1 && deviceProp.minor >= 2) || (deviceProp.major >= 2) ){
+        //printf("CLEAP::device::gpu::%s\n", deviceProp.name );
+        //printf("CLEAP::device_property::canMapHostMemory = %i\n", deviceProp.canMapHostMemory);
+        cudaHostAlloc((void **)&h_swap_vertices, sizeof(int)*cleap_get_vertex_count(m), cudaHostAllocMapped);
+        for(int i=0;i<cleap_get_vertex_count(m);i++)h_swap_vertices[i]=-1;
+        cudaHostGetDevicePointer((void **)&d_swap_vertices, (void *)h_swap_vertices, 0);
+
+        cudaHostAlloc((void **)&h_listo, sizeof(int), cudaHostAllocMapped);
+        h_listo[0] = 0;
+        cudaHostGetDevicePointer((void **)&m->dm->d_listo, (void *)h_listo, 0);
+        _cleap_start_timer();
+
+        while( !h_listo[0] ){
+            //printf("fix triangles count: %d\n",count++);
+            h_listo[0] = 1;
+            cudaThreadSynchronize();
+            _cleap_init_device_dual_arrays_int(m->dm->d_trirel, m->dm->d_trireservs, cleap_get_face_count(m), -1, dimBlockInit, dimGridInit); //demora el orden de 10^-5 secs
+            cudaThreadSynchronize();
+            if( mode == CLEAP_MODE_2D )
+                correctTrianglesKernel<256><<< dimGrid, dimBlock >>>(d_vbo_v, d_eab, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m), m->dm->d_listo, m->dm->d_trirel, m->dm->d_trireservs, d_swap_vertices);
+            else
+                cleap_kernel_triangle_fix_3d<256><<< dimGrid, dimBlock >>>(d_vbo_v, d_eab, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m), m->dm->d_listo, m->dm->d_trirel, m->dm->d_trireservs); // NOT WORKING AS INTENDED
+
+            cudaThreadSynchronize();
+            if(h_listo[0]==-1){
+                perform_swap_pos_buffer(m,d_swap_vertices,d_vbo_v);
+                perform_swapping_associated_buffers(m,h_swap_vertices);
+//                correct_CW_triangles<<<dimGridInit,dimBlockInit>>>(d_vbo_v, d_eab, cleap_get_face_count(m));
+                h_listo[0]=0;
+            }
+            if( h_listo[0] ){break;}
+            //repair triangulation step
+            cleap_kernel_repair<<< dimGrid, dimBlock >>>(d_eab, m->dm->d_trirel, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m)); //update
+            it++;
+        }
+        cudaFree(d_swap_vertices);
+    }
+        // else use memcpy transfers
+    else{
+        //! ZERO COPY = OFF
+        //printf("CLEAP::device::gpu::%s\n", deviceProp.name );
+        h_listo = (int*)malloc(sizeof(int));
+        h_listo[0] = 0;
+        cudaMalloc( (void**) &m->dm->d_listo , sizeof(int) );
+        //listo es una variable que indica cuando el algoritmo ha finalizado. cuanto listo = 1 entonces todos los edges son delaunay.
+        _cleap_start_timer();
+        while( !h_listo[0] ){
+
+            h_listo[0] = 1;
+            cudaMemcpy( m->dm->d_listo, h_listo, sizeof(int), cudaMemcpyHostToDevice );
+            _cleap_init_device_dual_arrays_int(m->dm->d_trirel, m->dm->d_trireservs, cleap_get_face_count(m), -1, dimBlockInit, dimGridInit); //demora el orden de 10^-5 secs
+//            if( mode == CLEAP_MODE_2D )
+//                correctTrianglesKernel<256><<< dimGrid, dimBlock >>>(d_vbo_v, d_eab, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m), m->dm->d_listo, m->dm->d_trirel, m->dm->d_trireservs);
+//            //TODO: This isn't implemented yet
+//            else
+//                cleap_kernel_triangle_fix_3d<256><<< dimGrid, dimBlock >>>(d_vbo_v, d_eab, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m), m->dm->d_listo, m->dm->d_trirel, m->dm->d_trireservs); // NOT WORKING AS INTENDED
+
+            cudaThreadSynchronize();
+            cudaMemcpy( h_listo, m->dm->d_listo, sizeof(int), cudaMemcpyDeviceToHost );
+            if( h_listo[0] ){
+                break;
+            }
+            //repair triangulation step
+            cleap_kernel_repair<<< dimGrid, dimBlock >>>(d_eab, m->dm->d_trirel, m->dm->d_edges_n, m->dm->d_edges_a, m->dm->d_edges_b, m->dm->d_edges_op, cleap_get_edge_count(m)); //update
+            it++;
+        }
+        cudaFree(m->dm->d_listo);
+    }
+    //printf("computed in %.5g[s] (%i iterations)\n", _cleap_stop_timer(), it );
+    //printf("%.6f\n", _cleap_stop_timer());
+    //!Unbind Texture
+    cudaUnbindTexture(tex_triangles);
+    // unmap buffer object
+    cudaGraphicsUnmapResources(1, &m->dm->vbo_v_cuda, 0);
+    cudaGraphicsUnmapResources(1, &m->dm->eab_cuda, 0);
+    cudaFreeHost(h_listo);
+
+    return CLEAP_SUCCESS;
+
+}
+
 CLEAP_RESULT cleap_delaunay_transformation(_cleap_mesh *m, int mode){
 
-	//printf("CLEAP::delaunay_transformation_%id::", mode);
+	//printf("CLEAP::delaunay_transformation_%id\n", mode);
 	float4 *d_vbo_v;
 	GLuint *d_eab;
 	size_t bytes=0;
